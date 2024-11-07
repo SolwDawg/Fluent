@@ -1,4 +1,4 @@
-import { Colors } from "./Colors";
+import Colors from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const defaultStyles = StyleSheet.create({
@@ -19,6 +19,6 @@ export const defaultStyles = StyleSheet.create({
   },
   pageContainer: {
     flex: 1,
-    backgroundColor: Colors.light.background,
+    backgroundColor: Colors.light,
   },
 });

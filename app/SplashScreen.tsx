@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     paddingBottom: 75,
     flexDirection: "column",
     overflow: "hidden",
-    fontFamily: "Poppins, sans-serif",
   },
   contentWrapper: {
     display: "flex",

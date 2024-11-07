@@ -1,54 +1,52 @@
-import AnimatedIntro from "@/components/AnimatedIntro";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 import Button from "@/components/Button";
 import SocialButton from "@/components/SocialButton";
 import { useRouter } from "expo-router";
 
-export default function Index() {
-  const router = useRouter();
-  return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/Logo.png")}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-      <Text style={styles.welcomeText}>Welcome to{"\n"}Fluent</Text>
-      <Button
-        title="Log in"
-        onPress={() => {
-          router.push("./SplashScreen");
-        }}
-        style={styles.loginButton}
-        textStyle={styles.loginButtonText}
-      />
-      <Button
-        title="Sign up"
-        onPress={() => {
-          router.push("./register");
-        }}
-        style={styles.signupButton}
-        textStyle={styles.signupButtonText}
-      />
-      <Text style={styles.continueText}>Continue With Accounts</Text>
-      <View style={styles.socialButtonsContainer}>
-        <SocialButton
-          title="Google"
-          onPress={() => {}}
-          style={styles.googleButton}
-          textStyle={styles.googleButtonText}
-        />
-        <SocialButton
-          title="Facebook"
-          onPress={() => {}}
-          style={styles.facebookButton}
-          textStyle={styles.facebookButtonText}
-        />
-      </View>
-      <View style={styles.homeIndicator} />
-    </View>
-  );
-}
+// export default function Index() {
+//   const router = useRouter();
+//   return (
+//     <View style={styles.container}>
+//       <Image
+//         source={require("@/assets/images/Logo.png")}
+//         style={styles.logo}
+//         resizeMode="contain"
+//       />
+//       <Text style={styles.welcomeText}>Welcome to{"\n"}Fluent</Text>
+//       <Button
+//         title="Log in"
+//         onPress={() => {
+//           router.replace("/sign-in");
+//         }}
+//         style={styles.loginButton}
+//         textStyle={styles.loginButtonText}
+//       />
+//       <Button
+//         title="Sign up"
+//         onPress={() => {
+//           router.push("/sign-up");
+//         }}
+//         style={styles.signupButton}
+//         textStyle={styles.signupButtonText}
+//       />
+//       <Text style={styles.continueText}>Continue With Accounts</Text>
+//       <View style={styles.socialButtonsContainer}>
+//         <SocialButton
+//           title="Google"
+//           onPress={() => {}}
+//           style={styles.googleButton}
+//           textStyle={styles.googleButtonText}
+//         />
+//         <SocialButton
+//           title="Facebook"
+//           onPress={() => {}}
+//           style={styles.facebookButton}
+//           textStyle={styles.facebookButtonText}
+//         />
+//       </View>
+//     </View>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -180,13 +178,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textTransform: "uppercase",
     letterSpacing: 2.55,
-  },
-  homeIndicator: {
-    borderRadius: 100,
-    display: "flex",
-    marginTop: 55,
-    width: 134,
-    flexShrink: 0,
-    height: 5,
   },
 });
