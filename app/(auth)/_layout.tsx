@@ -16,6 +16,8 @@ export default function AuthRoutesLayout() {
           headerShown: false,
         }}
       ></Stack.Screen>
+      <Stack.Screen name="sign-up"></Stack.Screen>
+      <Stack.Screen name="welcome" options={{ headerShown: false }} />
     </Stack>
   );
 }

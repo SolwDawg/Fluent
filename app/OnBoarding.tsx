@@ -64,8 +64,7 @@ export default function Onboarding() {
   };
 
   const endOnboarding = () => {
-    setScreenIndex(0);
-    router.back();
+    router.push("/(auth)/welcome");
   };
 
   const swipes = Gesture.Simultaneous(
@@ -225,7 +224,6 @@ const styles = StyleSheet.create({
   title: {
     color: "rgba(35, 38, 47, 1)",
     fontSize: 34,
-    fontFamily: "Poppins, sans-serif",
     textAlign: "center",
     fontWeight: "700",
     lineHeight: 51,
@@ -237,7 +235,6 @@ const styles = StyleSheet.create({
   description: {
     color: "rgba(142, 146, 149, 1)",
     fontSize: 16,
-    fontFamily: "Poppins, sans-serif",
     fontWeight: "300",
     lineHeight: 29,
     textAlign: "center",

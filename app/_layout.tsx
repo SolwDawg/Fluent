@@ -1,6 +1,10 @@
 import * as SecureStore from "expo-secure-store";
-import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
-import { Slot } from "expo-router";
+import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/clerk-expo";
+import { Slot, SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import { Poppins_400Regular, useFonts } from "@expo-google-fonts/poppins";
+import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { LogBox } from "react-native";
 
 const tokenCache = {
   async getToken(key: string) {
@@ -35,11 +39,54 @@ if (!publishableKey) {
   );
 }
 
+LogBox.ignoreLogs(["Clerk:"]);
+
+SplashScreen.preventAutoHideAsync();
+
+const InitialLayout = () => {
+  const [loaded, error] = useFonts({
+    Poppins_400Regular,
+  });
+  const { isLoaded, isSignedIn } = useAuth();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    if (isSignedIn) {
+      router.replace("/(home)");
+    } else {
+      router.replace("/");
+    }
+  }, [isSignedIn]);
+
+  if (!loaded || !isLoaded) {
+    return <Slot />;
+  }
+
+  return (
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="(home)" options={{ headerShown: false }} />
+    </Stack>
+  );
+};
+
 function RootLayoutNav() {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
-        <Slot />
+        <GestureHandlerRootView>
+          <InitialLayout />
+        </GestureHandlerRootView>
       </ClerkLoaded>
     </ClerkProvider>
   );
