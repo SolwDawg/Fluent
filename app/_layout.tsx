@@ -52,16 +52,17 @@ const InitialLayout = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && isLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, isLoaded]);
 
   useEffect(() => {
     if (!isLoaded) return;
+    if (isSignedIn === undefined) return;
 
     if (isSignedIn) {
-      router.replace("/(home)");
+      router.replace("/(home)/(tabs)/home");
     } else {
       router.replace("/");
     }
@@ -73,9 +74,9 @@ const InitialLayout = () => {
 
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       <Stack.Screen name="(home)" options={{ headerShown: false }} />
+      <Stack.Screen name="SplashScreen" options={{ headerShown: false }} />
     </Stack>
   );
 };

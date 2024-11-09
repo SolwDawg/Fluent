@@ -188,7 +188,7 @@ const DUMMY_MESSAGE: Message[] = [
 //   );
 // };
 
-const newChat = () => {
+const Chat = () => {
   return (
     <View style={{ flex: 1 }}>
       <Chatbot />
@@ -196,7 +196,7 @@ const newChat = () => {
   );
 };
 
-export default newChat;
+export default Chat;
 
 const styles = StyleSheet.create({
   logoContainer: {

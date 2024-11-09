@@ -7,7 +7,7 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/Button";
 import SocialButton from "@/components/SocialButton";
@@ -15,6 +15,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -46,7 +47,7 @@ export default function Page() {
 
         if (signInAttempt.status === "complete") {
           await setActive({ session: signInAttempt.createdSessionId });
-          router.replace("/(home)/new");
+          router.replace("/(home)/(tabs)/home");
         } else {
           console.error(JSON.stringify(signInAttempt, null, 2));
         }
@@ -59,7 +60,7 @@ export default function Page() {
 
   async function onGoogleSignIn() {
     try {
-      const redirectUrl = Linking.createURL("/(home)");
+      const redirectUrl = Linking.createURL("/(home)/(tabs)/home");
       const oAuthFlow = await googleOAuth.startOAuthFlow({
         redirectUrl: redirectUrl,
       });
@@ -85,71 +86,89 @@ export default function Page() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        validationSchema={validationSchema}
-        onSubmit={onSignInPress}
-      >
-        {({ handleChange, handleSubmit, values, errors, touched }) => (
-          <View style={styles.content}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Login Your{"\n"}Account</Text>
-            </View>
-            <TextInput
-              onChangeText={handleChange("email")}
-              value={values.email}
-              autoCapitalize="none"
-              placeholder="Enter your email address"
-              style={styles.input}
-            />
-            {touched.email && errors.email && (
-              <Text style={styles.errorText}>{errors.email}</Text>
-            )}
-            <TextInput
-              onChangeText={handleChange("password")}
-              value={values.password}
-              placeholder="Password..."
-              secureTextEntry={true}
-              style={styles.input}
-            />
-            {touched.password && errors.password && (
-              <Text style={styles.errorText}>{errors.password}</Text>
-            )}
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Forget Password?</Text>
-            </TouchableOpacity>
-            <Button
-              title="Login"
-              onPress={handleSubmit}
-              style={styles.loginButton}
-              textStyle={styles.loginButtonText}
-            />
-          </View>
-        )}
-      </Formik>
-      <View style={styles.signUpContainer}>
-        <Text style={styles.signUpText}>
-          Create New Account?{" "}
-          <Link href="/sign-up" style={styles.signUpLink}>
-            Sign up
-          </Link>
-        </Text>
+      <View style={{ paddingTop: 30, paddingLeft: 20 }}>
+        <AntDesign
+          name="left"
+          style={{
+            width: 45,
+            height: 45,
+            borderRadius: 100,
+            backgroundColor: "#fff",
+            padding: 10,
+            alignItems: "center",
+          }}
+          onPress={() => router.replace("/(auth)/welcome")}
+          size={24}
+          color="black"
+        />
       </View>
-      <View style={styles.divider} />
-      <Text style={styles.continueWithText}>Continue With Accounts</Text>
-      <View style={styles.socialButtonsContainer}>
-        <SocialButton
-          title="Google"
-          onPress={onGoogleSignIn}
-          style={styles.googleButton}
-          textStyle={styles.googleButtonText}
-        />
-        <SocialButton
-          title="Facebook"
-          onPress={() => {}}
-          style={styles.facebookButton}
-          textStyle={styles.facebookButtonText}
-        />
+      <View style={{ alignItems: "center" }}>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={onSignInPress}
+        >
+          {({ handleChange, handleSubmit, values, errors, touched }) => (
+            <View style={styles.content}>
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>Login Your{"\n"}Account</Text>
+              </View>
+              <TextInput
+                onChangeText={handleChange("email")}
+                value={values.email}
+                autoCapitalize="none"
+                placeholder="Enter your email address"
+                style={styles.input}
+              />
+              {touched.email && errors.email && (
+                <Text style={styles.errorText}>{errors.email}</Text>
+              )}
+              <TextInput
+                onChangeText={handleChange("password")}
+                value={values.password}
+                placeholder="Password..."
+                secureTextEntry={true}
+                style={styles.input}
+              />
+              {touched.password && errors.password && (
+                <Text style={styles.errorText}>{errors.password}</Text>
+              )}
+              <TouchableOpacity style={styles.forgotPassword}>
+                <Text style={styles.forgotPasswordText}>Forget Password?</Text>
+              </TouchableOpacity>
+              <Button
+                title="Login"
+                onPress={handleSubmit}
+                style={styles.loginButton}
+                textStyle={styles.loginButtonText}
+              />
+            </View>
+          )}
+        </Formik>
+        <View style={styles.signUpContainer}>
+          <Text style={styles.signUpText}>
+            Create New Account?{" "}
+            <Link href="/sign-up" style={styles.signUpLink}>
+              Sign up
+            </Link>
+          </Text>
+        </View>
+        <View style={styles.divider} />
+        <Text style={styles.continueWithText}>Continue With Accounts</Text>
+        <View style={styles.socialButtonsContainer}>
+          <SocialButton
+            title="Google"
+            onPress={onGoogleSignIn}
+            style={styles.googleButton}
+            textStyle={styles.googleButtonText}
+          />
+          <SocialButton
+            title="Facebook"
+            onPress={() => {}}
+            style={styles.facebookButton}
+            textStyle={styles.facebookButtonText}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -159,9 +178,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderRadius: 40,
-    paddingTop: 68,
     paddingBottom: 68,
-    alignItems: "center",
+    backgroundColor: "#EFEFEF",
   },
   content: {
     alignSelf: "stretch",

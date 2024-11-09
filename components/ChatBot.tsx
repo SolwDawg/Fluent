@@ -7,10 +7,12 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from "react-native";
 import { isSpeakingAsync, speak, stop } from "expo-speech";
 import ChatBubble from "./ChatBubble";
 import axios from "axios";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 interface ChatPart {
   text: string;
@@ -97,7 +99,14 @@ const Chatbot: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Gemini Chatbot</Text>
+      {chat.length === 0 && (
+        <Image
+          style={{
+            marginLeft: 120,
+          }}
+          source={require("@/assets/images/Logo.png")}
+        />
+      )}
       <FlatList
         data={chat}
         renderItem={renderChatItem}
@@ -113,7 +122,9 @@ const Chatbot: React.FC = () => {
           onChangeText={setUserInput}
         />
         <TouchableOpacity style={styles.button} onPress={handleUserInput}>
-          <Text style={styles.buttonText}>Send</Text>
+          <Text style={styles.buttonText}>
+            <Ionicons name="send" size={24} color="white" />
+          </Text>
         </TouchableOpacity>
       </View>
       {loading && <ActivityIndicator style={styles.loading} color="#333" />}
