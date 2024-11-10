@@ -69,7 +69,7 @@ const TabStructure = () => {
           headerShown: false,
           tabBarActiveTintColor: "#141718",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="user" size={24} color={color} />
+            <MaterialIcons name="g-translate" size={24} color={color} />
           ),
         }}
       />
@@ -80,7 +80,7 @@ const TabStructure = () => {
           headerShown: false,
           tabBarActiveTintColor: "#141718",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="g-translate" size={24} color={color} />
+            <FontAwesome5 name="user" size={24} color={color} />
           ),
         }}
       />

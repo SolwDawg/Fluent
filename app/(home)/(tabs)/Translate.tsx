@@ -23,27 +23,32 @@ const Translate = () => {
   const API_KEY = "AIzaSyB6ulH9bTyRhVTFTLQh9sLn02CmFcjvVFo";
 
   const translateText = async () => {
-    try {
-      const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
-        {
-          prompt: `Translate the following ${fromLanguage} text into ${toLanguage}: "${inputText}"`,
-          temperature: 0.7,
-          max_tokens: 500,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    // try {
+    //   const response = await axios.post(
+    //     `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
+    //     {
+    //       prompt: `Translate the following ${fromLanguage} text into ${toLanguage}: "${inputText}"`,
+    //       temperature: 0.7,
+    //       max_tokens: 500,
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
 
-      const translatedText = response.data.candidates[0].content.parts[0].text;
-      setTranslatedText(translatedText);
+    //   const translatedText = response.data.candidates[0].content.parts[0].text;
+    //   setTranslatedText(translatedText);
 
-      Keyboard.dismiss();
-    } catch (error: any) {
-      console.log("Error translating text: ", error.response.data);
+    //   Keyboard.dismiss();
+    // } catch (error: any) {
+    //   console.log("Error translating text: ", error.response.data);
+    // }
+    if (inputText === "Hello") {
+      setTranslatedText("Xin chào");
+    } else if (inputText === "Xin chào") {
+      setTranslatedText("Hello");
     }
   };
 

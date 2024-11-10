@@ -28,9 +28,6 @@ const validationSchema = Yup.object().shape({
     .required("Password is required")
     .min(4, "Password must be at least 4 characters")
     .label("Password"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), undefined], "Passwords must match")
-    .required("Confirm password is required"),
 });
 
 export default function SignUpScreen() {
@@ -130,7 +127,7 @@ export default function SignUpScreen() {
       {!pendingVerification && (
         <View style={{ alignItems: "center" }}>
           <Formik
-            initialValues={{ email: "", password: "", confirmPassword: "" }}
+            initialValues={{ email: "", password: "" }}
             validationSchema={validationSchema}
             onSubmit={onSignUpPress}
           >
@@ -158,16 +155,6 @@ export default function SignUpScreen() {
                 />
                 {touched.password && errors.password && (
                   <Text style={styles.errorText}>{errors.password}</Text>
-                )}
-                <TextInput
-                  onChangeText={handleChange("confirmPassword")}
-                  value={values.confirmPassword}
-                  placeholder="Confirm Password..."
-                  secureTextEntry={true}
-                  style={styles.input}
-                />
-                {touched.confirmPassword && errors.confirmPassword && (
-                  <Text style={styles.errorText}>{errors.confirmPassword}</Text>
                 )}
                 <TouchableOpacity style={styles.forgotPassword}>
                   <Text style={styles.forgotPasswordText}>
